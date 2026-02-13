@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ma Valentine 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(-45deg, #ff4d6d, #ff9aa2, #ffc3a0, #ff4d6d);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  overflow: hidden;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.card {
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 50px 40px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+button {
+  border: none;
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: white;
+  color: #ff4d6d;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#ff4d6d,#ff9aa2);
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.heart {
+  position: absolute;
+  font-size: 24px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity:1; }
+  to { transform: translateY(-300px); opacity:0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Veux-tu être ma Valentine ? 💖</h1>
+  <div class="buttons">
+    <button id="yesBtn">Oui ❤️</button>
+    <button id="noBtn">Non 😢</button>
+  </div>
+</div>
+
+<div class="fullscreen" id="loveMessage">
+  Je savais que tu dirais oui 💘
+</div>
+
+<script>
+let yesBtn = document.getElementById("yesBtn");
+let noBtn = document.getElementById("noBtn");
+let message = document.getElementById("loveMessage");
+
+let yesSize = 1;
+let noTexts = ["Tu es sûr ?", "Vraiment sûr ?", "Réfléchis bien…", "Dernière chance 😭"];
+let noIndex = 0;
+
+yesBtn.onclick = () => {
+  message.style.display = "flex";
+  createHearts(40);
+};
+
+noBtn.onclick = () => {
+  if (noIndex < noTexts.length) {
+    noBtn.textContent = noTexts[noIndex++];
+  }
+  yesSize += 0.25;
+  yesBtn.style.transform = `scale(${yesSize})`;
+  createHearts(6);
+};
+
+function createHearts(n) {
+  for (let i=0;i<n;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*window.innerWidth+"px";
+    h.style.top=window.innerHeight+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
